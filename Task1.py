@@ -4,6 +4,7 @@ It's ok if you don't understand how to read files.
 """
 import csv
 from itertools import count
+from turtle import st
 with open('texts.csv', 'r') as f:
     reader = csv.reader(f)
     texts = list(reader)
@@ -21,28 +22,21 @@ Print a message:
 """
 
 def getUniqueTelephoneNumbers():
+    print("Texts: " + str(len(texts)) + ", Calls: " + str(len(calls)))
     telephoneNumbers = []
-    for record in texts:
-        if record[0] in telephoneNumbers:
-            continue
-        else:
-            telephoneNumbers.append(record[0])
+    for text in texts:
+        if text[0] not in telephoneNumbers:
+            telephoneNumbers.append(text[0])
         
-        if record[1] in telephoneNumbers:
-            continue
-        else:
-            telephoneNumbers.append(record[1])
+        if text[1] not in telephoneNumbers:
+            telephoneNumbers.append(text[1])
 
-    for record in calls:
-        if record[0] in telephoneNumbers:
-            continue
-        else:
-            telephoneNumbers.append(record[0])
+    for call in calls:
+        if call[0] not in telephoneNumbers:
+            telephoneNumbers.append(call[0])
         
-        if record[1] in telephoneNumbers:
-            continue
-        else:
-            telephoneNumbers.append(record[1])
+        if call[1] not in telephoneNumbers:
+            telephoneNumbers.append(call[1])
 
     return telephoneNumbers
 

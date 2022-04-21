@@ -29,12 +29,8 @@ def getOutgoingCallersWithoutIncomingCalls(calls):
     outGoingCallers = []
     receivers = [row[1] for row in calls]
     for record in calls:
-        if record[0] in receivers:
-            continue
-        else:
-            if record[0] in outGoingCallers:
-                continue
-            else:
+        if record[0] not in receivers:
+            if record[0] not in outGoingCallers:
                 outGoingCallers.append(record[0])
 
     return outGoingCallers
@@ -43,9 +39,7 @@ def getOutgoingCallersWithoutTexts(callers, texts):
     telemarketers = []
 
     for number in callers:
-        if number in texts:
-            continue
-        else:
+        if number not in texts:
             telemarketers.append(number)
 
     return telemarketers
