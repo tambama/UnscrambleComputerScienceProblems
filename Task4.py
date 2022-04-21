@@ -43,8 +43,8 @@ def getOutgoingCallersWithoutTexts(callers, texts):
         for item in texts:
             if number in item:
                 break
-            else:
-                telemarketers.add(number)
+        else:
+            telemarketers.add(number)
 
     return telemarketers
 
