@@ -47,14 +47,10 @@ The percentage should have 2 decimal digits
 """
 
 def isFixedLine(tel):
-  if tel[:2] == "(0":
-    return True
-  return False
+  return tel[:2] == "(0"
 
 def isBangaloreFixedLine(tel):
-  if tel[:5] == "(080)":
-    return True
-  return False
+  return tel[:5] == "(080)"
 
 def getAreaCode(tel):
   code = "("
@@ -66,48 +62,40 @@ def getAreaCode(tel):
 
 def isMobileNumber(tel):
   firstDigit = tel[0]
-  if firstDigit == '7' or firstDigit == '8' or firstDigit == '9':
-    for character in tel:
-      if character == " ":
-        return True
-  return False
+  if firstDigit != '7' and firstDigit != '8' and firstDigit != '9':
+    return False
+
+  if ' ' in tel:
+    return True
 
 def getMobilePrefix(tel):
   return tel[:4]
 
 def isTeleMarketerNumber(tel):
   firstThreeDigits = tel[:3]
-  if firstThreeDigits == "140":
-    for character in tel:
-      if character == " ":
-        return False
-    return True
-  return False
+  return firstThreeDigits == "140" and ' ' not in tel
 
 def getUniqueCodesCalledFromBangalore():
   numbers = []
   for record in calls:
-    if isBangaloreFixedLine(record[0]):
-      calledNumber = record[1]
-      if isTeleMarketerNumber(calledNumber):
-        if "140" in numbers:
-          continue
-        else:
-          numbers.append("140")
-      elif isBangaloreFixedLine(calledNumber):
-        if "(080)" in numbers:
-          continue
-        else:
-          numbers.append("(080)")
-      elif isMobileNumber(calledNumber):
-        mobileCode = getMobilePrefix(calledNumber)
-        if mobileCode in numbers:
-          continue
-        else:
-          numbers.append(mobileCode)
+    if not isBangaloreFixedLine(record[0]):
+      continue
+    
+    calledNumber = record[1]
+    if isTeleMarketerNumber(calledNumber):
+      if "140" not in numbers:
+        numbers.append("140")
+    elif isBangaloreFixedLine(calledNumber):
+      if "(080)" not in numbers:
+        numbers.append("(080)")
+    elif isMobileNumber(calledNumber):
+      mobileCode = getMobilePrefix(calledNumber)
+      if mobileCode not in numbers:
+        numbers.append(mobileCode)
+        
   return numbers
 
-def getNumbersCalledFromBangalore():
+def getAllNumbersCalledFromBangalore():
   numbers = []
   for record in calls:
     if isBangaloreFixedLine(record[0]):
@@ -122,7 +110,7 @@ def getNumbersCalledFromBangalore():
   return numbers
 
 def getPercentageCallsToBangaloreNumbers():
-  numbersCalled = getNumbersCalledFromBangalore()
+  numbersCalled = getAllNumbersCalledFromBangalore()
   totalNumbers = len(numbersCalled)
 
   totalBangaloreCalled = 0
