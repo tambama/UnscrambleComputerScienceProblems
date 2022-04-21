@@ -3,6 +3,7 @@ Read file into texts and calls.
 It's ok if you don't understand how to read files.
 """
 import csv
+from operator import le
 
 with open('texts.csv', 'r') as f:
     reader = csv.reader(f)
@@ -36,11 +37,14 @@ def getOutgoingCallersWithoutIncomingCalls(calls):
     return outGoingCallers
 
 def getOutgoingCallersWithoutTexts(callers, texts):
-    telemarketers = []
+    telemarketers = set()
 
     for number in callers:
-        if number not in texts:
-            telemarketers.append(number)
+        for item in texts:
+            if number in item:
+                break
+            else:
+                telemarketers.add(number)
 
     return telemarketers
 

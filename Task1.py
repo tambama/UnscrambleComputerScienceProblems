@@ -22,7 +22,6 @@ Print a message:
 """
 
 def getUniqueTelephoneNumbers():
-    print("Texts: " + str(len(texts)) + ", Calls: " + str(len(calls)))
     telephoneNumbers = []
     for text in texts:
         if text[0] not in telephoneNumbers:

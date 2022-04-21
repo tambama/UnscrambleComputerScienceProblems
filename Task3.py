@@ -3,7 +3,6 @@ Read file into texts and calls.
 It's ok if you don't understand how to read files.
 """
 import csv
-from time import perf_counter
 
 with open('texts.csv', 'r') as f:
     reader = csv.reader(f)
@@ -46,86 +45,34 @@ to other fixed lines in Bangalore."
 The percentage should have 2 decimal digits
 """
 
-def isFixedLine(tel):
-  return tel[:2] == "(0"
-
-def isBangaloreFixedLine(tel):
-  return tel[:5] == "(080)"
-
-def getAreaCode(tel):
-  code = "("
-  
-  for character in tel[1:]:
-    code += character
-    if character == ')':
-      return code
-
-def isMobileNumber(tel):
-  firstDigit = tel[0]
-  if firstDigit != '7' and firstDigit != '8' and firstDigit != '9':
-    return False
-
-  if ' ' in tel:
-    return True
-
-def getMobilePrefix(tel):
-  return tel[:4]
-
-def isTeleMarketerNumber(tel):
-  firstThreeDigits = tel[:3]
-  return firstThreeDigits == "140" and ' ' not in tel
-
-def getUniqueCodesCalledFromBangalore():
-  numbers = []
+def getCodesAndPrefixes():
+  codes = set()
   for record in calls:
-    if not isBangaloreFixedLine(record[0]):
-      continue
-    
-    calledNumber = record[1]
-    if isTeleMarketerNumber(calledNumber):
-      if "140" not in numbers:
-        numbers.append("140")
-    elif isBangaloreFixedLine(calledNumber):
-      if "(080)" not in numbers:
-        numbers.append("(080)")
-    elif isMobileNumber(calledNumber):
-      mobileCode = getMobilePrefix(calledNumber)
-      if mobileCode not in numbers:
-        numbers.append(mobileCode)
-        
-  return numbers
-
-def getAllNumbersCalledFromBangalore():
-  numbers = []
-  for record in calls:
-    if isBangaloreFixedLine(record[0]):
-      calledNumber = record[1]
-      if isTeleMarketerNumber(calledNumber):
-          numbers.append("140")
-      elif isBangaloreFixedLine(calledNumber):
-          numbers.append("(080)")
-      elif isMobileNumber(calledNumber):
-        mobileCode = getMobilePrefix(calledNumber)
-        numbers.append(mobileCode)
-  return numbers
-
-def getPercentageCallsToBangaloreNumbers():
-  numbersCalled = getAllNumbersCalledFromBangalore()
-  totalNumbers = len(numbersCalled)
-
-  totalBangaloreCalled = 0
-  for code in numbersCalled:
-    if code == "(080)":
-      totalBangaloreCalled += 1
+    if '(080)' in record[0]:
+      if '(' in record[1]:
+        codes.add(record[1][:record[1].index(')') + 1])
+      elif record[1][0] == '7' or record[1][0] == '8' or record[1][0] == '9':
+        codes.add(record[1][:4])
+      elif record[1][:3] == '140':
+        codes.add('140')
   
-  return (totalBangaloreCalled / totalNumbers) * 100
+  print("The numbers called by people in Bangalore have codes:")
+  for code in sorted(codes):
+    print(code)
 
+def calculatePercantageBangaloreCalls():
+  totalCalls = 0
+  bangaloreTotalCalls = 0
+  for record in calls:
+    if '(080)' in record[0]:
+      totalCalls += 1
+      if '(080)' in record[1]:
+        bangaloreTotalCalls += 1
 
-print ("The numbers called by people in Bangalore have codes: ")
-orderedCodes = sorted(getUniqueCodesCalledFromBangalore())
-for code in orderedCodes:
-  print(code)
+  percentage = bangaloreTotalCalls / totalCalls * 100
 
-percentage = getPercentageCallsToBangaloreNumbers()
-print("{:.2f}".format(percentage) + " percent of calls from fixed lines in Bangalore are calls to other fixed lines in Bangalore.")
+  print("{:.2f}".format(percentage) + " percent of calls from fixed lines in Bangalore are calls")
+
+getCodesAndPrefixes()
+calculatePercantageBangaloreCalls()
 

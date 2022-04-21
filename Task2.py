@@ -21,14 +21,29 @@ September 2016.".
 """
 
 def getLongestCall():
-    longestCall = calls[0]
-
+    
+    totals = {}
     for record in calls:
-        if int(record[3]) > int(longestCall[3]):
-            longestCall = record
+        if record[0] not in totals:
+            totals[record[0]] = int(record[3])
+        else:
+            totals[record[0]] += int(record[3])
+
+        if record[1] not in totals:
+            totals[record[1]] = int(record[3])
+        else:
+            totals[record[1]] += int(record[3])
+
+    first_key = list(totals)[0]
+
+    longestCall = [first_key, totals[first_key]]
+
+    for key in totals:
+        if int(totals[key]) > int(longestCall[1]):
+            longestCall = [key, totals[key]]
     
     return longestCall
 
 longestCall = getLongestCall()
 
-print(longestCall[0] + " spent the longest time, " + longestCall[3] + " seconds, on the phone during September 2016.")
+print(longestCall[0] + " spent the longest time, " + str(longestCall[1]) + " seconds, on the phone during September 2016.")

@@ -9,10 +9,10 @@ This gives us 2n ^ 2 + Cn
 Task 2: BIG O is O(n)
 It takes n time to iterate through all calls. It takes constant time to do a comparison
 
-Task 3: BIG O is O(n^2)
-In the function getUniqueCodesCalledFromBangalore() It takes n time to iterate through all records and also n time to check if a numbers is in telephone list, in the worst case, for each iteration.
-getNumbersCalledFromBangalore() take n time to do iterations over all calls and constant time to check the type of number and constant time to append to the list. All other functions take constant time
-This brings us to n^2 + n + C
+Task 3: BIG O is O(n)
+getCodesAndPrefixes(): it takes n time to iterate through all calls. It takes constant time to perform all the following operations
+calculatePercantageBangaloreCalls(): it takes n time to do iterations over all calls and constant time to check the type of number and constant time to add to the couters.
+This brings us to 2n + C
 
 Task 4: BIG O is O(n^2)
 In the first function [getOutgoingCallersWithoutIncomingCalls] It takes n time to get all receivers. It then takes n time to iterate through all calls and also n time to check if a numbers is in outgoingCallers list, in the worst case, for each iteration
