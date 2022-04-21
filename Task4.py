@@ -26,6 +26,22 @@ Print a message:
 The list of numbers should be print out one per line in lexicographic order with no duplicates.
 """
 
+def referenceCode():
+    callers = set()
+    numbers_to_avoid = set()
+
+    for call in calls:
+        callers.add(call[0])
+        numbers_to_avoid.add(call[1])
+
+    for text in texts:
+        numbers_to_avoid.update([text[0], text[1]])
+
+    telemarkerter = callers - numbers_to_avoid
+
+    print("These numbers could be telemarketers:")
+    print(*sorted(telemarkerter), sep='\n')
+
 def getOutgoingCallersWithoutIncomingCalls(calls):
     outGoingCallers = []
     receivers = [row[1] for row in calls]
