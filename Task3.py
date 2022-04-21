@@ -121,12 +121,6 @@ def getNumbersCalledFromBangalore():
         numbers.append(mobileCode)
   return numbers
 
-
-print ("The numbers called by people in Bangalore have codes: ")
-orderedCodes = sorted(getUniqueCodesCalledFromBangalore())
-for code in orderedCodes:
-  print(code)
-
 def getPercentageCallsToBangaloreNumbers():
   numbersCalled = getNumbersCalledFromBangalore()
   totalNumbers = len(numbersCalled)
@@ -137,6 +131,12 @@ def getPercentageCallsToBangaloreNumbers():
       totalBangaloreCalled += 1
   
   return (totalBangaloreCalled / totalNumbers) * 100
+
+
+print ("The numbers called by people in Bangalore have codes: ")
+orderedCodes = sorted(getUniqueCodesCalledFromBangalore())
+for code in orderedCodes:
+  print(code)
 
 percentage = getPercentageCallsToBangaloreNumbers()
 print("{:.2f}".format(percentage) + " percent of calls from fixed lines in Bangalore are calls to other fixed lines in Bangalore.")
