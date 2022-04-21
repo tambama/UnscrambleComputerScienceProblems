@@ -1,0 +1,20 @@
+Task 0:  BIG O is O(1)
+It takes constant time to get an at any index position. We get O(1 + 1) => O(1)
+
+Task 1: BIG O is O(n^2)
+It takes n time to iterate through all texts and also n time to check if a numbers is in telephone list for each iteration
+It also takes m time to iterate through all calls and also m time to check if a numbers is in telephone list for each iteration
+This gives us 2n ^ 2 + Cn
+
+Task 2: BIG O is O(n)
+It takes n time to iterate through all calls. It takes constant time to do a comparison
+
+Task 3: BIG O is O(n^2)
+In the function getUniqueCodesCalledFromBangalore() It takes n time to iterate through all records and also n time to check if a numbers is in telephone list, in the worst case, for each iteration.
+getNumbersCalledFromBangalore() take n time to do iterations over all calls and constant time to check the type of number and constant time to append to the list. All other functions take constant time
+This brings us to n^2 + n + C
+
+Task 4: BIG O is O(n^2)
+In the first function [getOutgoingCallersWithoutIncomingCalls] It takes n time to get all receivers. It then takes n time to iterate through all calls and also n time to check if a numbers is in outgoingCallers list, in the worst case, for each iteration
+In the second function it takes n time to iterate through callers then m time to check if a number is in the texts list. In the worst case n = m => n ^ 2
+combining the two we get 2n^2 + n + C where C is a constatant
